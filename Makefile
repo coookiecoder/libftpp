@@ -82,11 +82,11 @@ $(NAME): $(OBJECT)
 	ar -rc $(NAME) $(objects)
 
 clean:
-	@echo removing object file
+	@echo removing object file : $(OBJECT)
 	@rm -rf object
 
 fclean: clean
-	@echo removing static library file
+	@echo removing static library file : $(NAME)
 	@rm -rf $(NAME)
 
 re: fclean all
