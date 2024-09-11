@@ -75,7 +75,11 @@ OBJECT = $(DATA_BUFFER_OBJECT) $(MEMENTO_OBJECT) $(THREAD_OBJECT) $(WORKER_POOL_
 NAME = libftpp.a
 NAME_HEADER = data_structures.hpp
 
-all: $(NAME)
+TEST = test
+
+CXXFLAGS = -g3 -Wall -Wextra
+
+all: $(NAME) $(TEST)
 
 $(NAME): $(OBJECT)
 	@echo compiling eveything
@@ -94,4 +98,13 @@ re: fclean all
 object/%.o: source/%.cpp
 	@echo compiling $<
 	@mkdir -p $(dir $@)
-	@c++ -o $@ -c $<
+	@c++ $(CXXFLAGS) -o $@ -c $<
+
+$(TEST): $(NAME)
+	@echo compiling with main.cpp
+	@c++ $(CXXFLAGS) $(NAME) main.cpp -Iinclude -o test
+
+clean_$(TEST): fclean
+	rm -rf test
+
+re_$(TEST): fclean $(TEST)
