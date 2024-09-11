@@ -93,7 +93,7 @@ fclean: clean
 	@echo removing static library file : $(NAME)
 	@rm -rf $(NAME)
 
-re: fclean all
+re: fclean $(NAME)
 
 object/%.o: source/%.cpp
 	@echo compiling $<

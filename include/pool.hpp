@@ -10,9 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string>
+#pragma once
+
 #include <list>
+#include <string>
 #include <stdexcept>
+#include <algorithm>
 
 template <class TType>
 class Pool {
@@ -20,50 +23,51 @@ private:
 	TType* data;
 	size_t size;
 	size_t used;
+	std::list<TType *> data_used;
 
 public:
-	Pool();
-	~Pool();
+	[[maybe_unused]] Pool();
+	[[maybe_unused]] ~Pool();
 
-	Pool(const Pool<TType>& source);
-	Pool(Pool<TType>&& source) noexcept;
+	[[maybe_unused]] Pool(const Pool<TType>& source);
+	[[maybe_unused]] Pool(Pool<TType>&& source) noexcept;
 
-	Pool& operator=(const Pool<TType>& source);
-	Pool& operator=(Pool<TType>&& source) noexcept;
+	[[maybe_unused]] Pool& operator=(const Pool<TType>& source);
+	[[maybe_unused]] Pool& operator=(Pool<TType>&& source) noexcept;
 
-	Pool(size_t numberOfObjectStored);
+	[[maybe_unused]] explicit Pool(size_t numberOfObjectStored);
 
-	void resize(const size_t& numberOfObjectStored);
+	[[maybe_unused]] void resize(const size_t& numberOfObjectStored);
 
 	class Object {
 	private:
 		TType* data;
+		Pool& origin;
 	public:
 		template<typename ... TArgs>
-		explicit Object(TType* allocated_data, TArgs&& ... data);
-		~Object();
+		[[maybe_unused]] explicit Object(Pool& origin, TType* allocated_data, TArgs&& ... data);
+		[[maybe_unused]] ~Object();
 
-		TType* operator->();
+		[[maybe_unused]] TType* operator->();
 	};
 
 	template<typename ... TArgs>
-	Object acquire(TArgs&& ... p_args);
+	[[maybe_unused]] Object acquire(TArgs&& ... p_args);
+	[[maybe_unused]] void release(TType* data_to_release);
 };
 
 template <class TType>
-Pool<TType>::Pool() {
+[[maybe_unused]] Pool<TType>::Pool() : size(0), used(0) {
 	this->data = nullptr;
-	this->size = 0;
-	this->used = 0;
 }
 
 template <class TType>
-Pool<TType>::~Pool() {
+[[maybe_unused]] Pool<TType>::~Pool() {
 	delete[] this->data;
 }
 
 template <class TType>
-Pool<TType>::Pool(const Pool<TType> &source) {
+[[maybe_unused]] Pool<TType>::Pool(const Pool<TType> &source) : size(0), used(0) {
 	this->data = new TType[source.size];
 
 	for (int iteration = 0; iteration < source.size; ++iteration) {
@@ -75,7 +79,7 @@ Pool<TType>::Pool(const Pool<TType> &source) {
 }
 
 template <class TType>
-Pool<TType>::Pool(Pool<TType>&& source) noexcept {
+[[maybe_unused]] Pool<TType>::Pool(Pool<TType>&& source) noexcept : size(0), used(0) {
 	this->data = source.data;
 	this->size = source.size;
 	this->used = source.used;
@@ -86,7 +90,10 @@ Pool<TType>::Pool(Pool<TType>&& source) noexcept {
 }
 
 template <class TType>
-Pool<TType>& Pool<TType>::operator=(const Pool<TType>& source) {
+[[maybe_unused]] Pool<TType>& Pool<TType>::operator=(const Pool<TType>& source) {
+	if (source == this)
+		return *this;
+
 	this->data = new TType[source.size];
 
 	for (int iteration = 0; iteration < source.size; ++iteration) {
@@ -100,7 +107,7 @@ Pool<TType>& Pool<TType>::operator=(const Pool<TType>& source) {
 }
 
 template <class TType>
-Pool<TType>& Pool<TType>::operator=(Pool<TType>&& source) noexcept {
+[[maybe_unused]] Pool<TType>& Pool<TType>::operator=(Pool<TType>&& source) noexcept {
 	this->data = source.data;
 	this->size = source.size;
 	this->used = source.used;
@@ -113,14 +120,14 @@ Pool<TType>& Pool<TType>::operator=(Pool<TType>&& source) noexcept {
 }
 
 template<class TType>
-Pool<TType>::Pool(size_t numberOfObjectStored) {
+[[maybe_unused]] Pool<TType>::Pool(size_t numberOfObjectStored) : size(0), used(0) {
 	this->data = new TType[numberOfObjectStored];
 	this->size = numberOfObjectStored;
 	this->used = 0;
 }
 
 template <class TType>
-void Pool<TType>::resize(const size_t &numberOfObjectStored) {
+[[maybe_unused]] void Pool<TType>::resize(const size_t &numberOfObjectStored) {
 	auto* buffer = new TType[numberOfObjectStored];
 
 	for (int iteration = 0; iteration < this->size && iteration < numberOfObjectStored; ++iteration) {
@@ -138,27 +145,43 @@ void Pool<TType>::resize(const size_t &numberOfObjectStored) {
 
 template<class TType>
 template<typename ... TArgs>
-Pool<TType>::Object::Object(TType *allocated_data, TArgs&& ... data) {
+[[maybe_unused]] Pool<TType>::Object::Object(Pool& origin, TType *allocated_data, TArgs&& ... data) : origin(origin){
 	this->data = allocated_data;
 	this->data = new (this->data) TType(std::forward<TArgs>(data)...);
 }
 
 template<class TType>
-Pool<TType>::Object::~Object() {
+[[maybe_unused]] Pool<TType>::Object::~Object() {
+	this->origin.release(this->data);
 	this->data->~TType();
 }
 
 template<class TType>
-TType *Pool<TType>::Object::operator->() {
+[[maybe_unused]] TType *Pool<TType>::Object::operator->() {
 	return this->data;
 }
 
 template<class TType>
 template<typename ... TArgs>
-typename Pool<TType>::Object Pool<TType>::acquire(TArgs&& ... p_args) {
+[[maybe_unused]] typename Pool<TType>::Object Pool<TType>::acquire(TArgs&& ... p_args) {
 	if (this->used == this->size) {
 		throw (std::runtime_error("No more space in Pool left"));
 	}
 
-	return Pool<TType>::Object(this->data + this->used++, std::forward<TArgs>(p_args)...);
+	TType* buffer;
+
+	for (size_t iteration = 0; iteration < this->size; ++iteration) {
+		if (find(this->data_used.begin(), this->data_used.end(), this->data + iteration) == this->data_used.end()) {
+			this->data_used.push_back(this->data + iteration);
+			buffer = this->data + iteration;
+			break;
+		}
+	}
+
+	return Pool<TType>::Object(*this, buffer, std::forward<TArgs>(p_args)...);
+}
+
+template<class TType>
+[[maybe_unused]] void Pool<TType>::release(TType* data_to_release) {
+	this->data_used.remove(data_to_release);
 }
