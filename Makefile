@@ -108,3 +108,5 @@ clean_$(TEST): fclean
 	rm -rf test
 
 re_$(TEST): fclean $(TEST)
+
+.DEFAULT_GOAL := $(NAME)
