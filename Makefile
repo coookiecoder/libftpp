@@ -82,7 +82,7 @@ CXXFLAGS = -g3 -Wall -Wextra
 all: $(NAME) $(TEST)
 
 $(NAME): $(OBJECT)
-	@echo compiling eveything
+	@echo -n "compiled eveything, now linking : "
 	ar -rc $(NAME) $(objects)
 
 clean:
@@ -96,9 +96,9 @@ fclean: clean
 re: fclean $(NAME)
 
 object/%.o: source/%.cpp
-	@echo compiling $<
+	@echo -n "compiling $< : "
 	@mkdir -p $(dir $@)
-	@c++ $(CXXFLAGS) -o $@ -c $<
+	c++ $(CXXFLAGS) -o $@ -c $<
 
 $(TEST): $(NAME)
 	@echo compiling with main.cpp
