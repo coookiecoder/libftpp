@@ -77,7 +77,7 @@ NAME_HEADER = data_structures.hpp
 
 TEST = test
 
-CXXFLAGS = -g3 -Wall -Wextra
+CXXFLAGS = -Werror -Wall -Wextra -g3
 
 all: $(NAME) $(TEST)
 
