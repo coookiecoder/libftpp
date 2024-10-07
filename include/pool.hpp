@@ -168,7 +168,7 @@ template<typename ... TArgs>
 		throw (std::runtime_error("No more space in Pool left"));
 	}
 
-	TType* buffer;
+	TType* buffer = nullptr;
 
 	for (size_t iteration = 0; iteration < this->size; ++iteration) {
 		if (find(this->data_used.begin(), this->data_used.end(), this->data + iteration) == this->data_used.end()) {
@@ -176,6 +176,10 @@ template<typename ... TArgs>
 			buffer = this->data + iteration;
 			break;
 		}
+	}
+
+	if (buffer == nullptr) {
+		throw (std::runtime_error("Couldn't find space in the Pool"));
 	}
 
 	return Pool<TType>::Object(*this, buffer, std::forward<TArgs>(p_args)...);
