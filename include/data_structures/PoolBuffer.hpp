@@ -29,16 +29,24 @@ class PoolBuffer {
 
 template <class TType>
 PoolBuffer<TType>::PoolBuffer() {
+    this->size = size;
+
     this->data = static_cast<TType*>(operator new(sizeof(TType) * 1));
     this->used = new bool[1];
-    this->size = 1;
+
+    for (int index = 0; index < this->size; ++index)
+        this->used[index] = false;
 }
 
 template <class TType>
 PoolBuffer<TType>::PoolBuffer(size_t size) {
+    this->size = size;
+
     this->data = static_cast<TType*>(operator new(sizeof(TType) * size));
     this->used = new bool[size];
-    this->size = size;
+
+    for (int index = 0; index < this->size; ++index)
+        this->used[index] = false;
 }
 
 template <class TType>
@@ -51,12 +59,16 @@ PoolBuffer<TType>::~PoolBuffer() {
 
 template <class TType>
 void PoolBuffer<TType>::resize(size_t size) {
+    this->size = size;
+
     operator delete(this->data);
     this->data = static_cast<TType*>(operator new(sizeof(TType) * size));
 
     delete[] this->used;
     this->used = new bool[size];
-    this->size = size;
+
+    for (int index = 0; index < this->size; ++index)
+        this->used[index] = false;
 }
 
 template <class TType>
