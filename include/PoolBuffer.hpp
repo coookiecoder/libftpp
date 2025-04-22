@@ -4,21 +4,21 @@
 #include <utility>
 
 template <class TType>
-class DataBuffer {
+class PoolBuffer {
     private:
         TType* data = nullptr;
         bool*  used = nullptr;
         size_t size = 0;
     public:
-        DataBuffer();
-        DataBuffer(size_t size);
-        DataBuffer(const DataBuffer& other) = delete;
-        DataBuffer(DataBuffer&& other) = delete;
+        PoolBuffer();
+        PoolBuffer(size_t size);
+        PoolBuffer(const PoolBuffer& other) = delete;
+        PoolBuffer(PoolBuffer&& other) = delete;
 
-        DataBuffer& operator=(const DataBuffer& other) = delete;
-        DataBuffer& operator=(DataBuffer&& other) = delete;
+        PoolBuffer& operator=(const PoolBuffer& other) = delete;
+        PoolBuffer& operator=(PoolBuffer&& other) = delete;
 
-        ~DataBuffer();
+        ~PoolBuffer();
 
         void resize(size_t size);
 
@@ -28,21 +28,21 @@ class DataBuffer {
 };
 
 template <class TType>
-DataBuffer<TType>::DataBuffer() {
+PoolBuffer<TType>::PoolBuffer() {
     this->data = static_cast<TType*>(operator new(sizeof(TType) * 1));
     this->used = new bool[1];
     this->size = 1;
 }
 
 template <class TType>
-DataBuffer<TType>::DataBuffer(size_t size) {
+PoolBuffer<TType>::PoolBuffer(size_t size) {
     this->data = static_cast<TType*>(operator new(sizeof(TType) * size));
     this->used = new bool[size];
     this->size = size;
 }
 
 template <class TType>
-DataBuffer<TType>::~DataBuffer() {
+PoolBuffer<TType>::~PoolBuffer() {
     operator delete(this->data);
     delete[] this->used;
     this->data = nullptr;
@@ -50,7 +50,7 @@ DataBuffer<TType>::~DataBuffer() {
 }
 
 template <class TType>
-void DataBuffer<TType>::resize(size_t size) {
+void PoolBuffer<TType>::resize(size_t size) {
     operator delete(this->data);
     this->data = static_cast<TType*>(operator new(sizeof(TType) * size));
 
@@ -61,7 +61,7 @@ void DataBuffer<TType>::resize(size_t size) {
 
 template <class TType>
 template <typename ... TArgs>
-TType* DataBuffer<TType>::get_first(TArgs&&... p_args) {
+TType* PoolBuffer<TType>::get_first(TArgs&&... p_args) {
     for (int index = 0; index < this->size; ++index) {
         if (this->used[index] == false) {
             this->used[index] = true;
@@ -74,7 +74,7 @@ TType* DataBuffer<TType>::get_first(TArgs&&... p_args) {
 }
 
 template <class TType>
-void DataBuffer<TType>::deconstruct(TType* data) {
+void PoolBuffer<TType>::deconstruct(TType* data) {
     for (int index = 0; index < this->size; ++index) {
         if (this->data + index == data) {
             this->used[index] = false;

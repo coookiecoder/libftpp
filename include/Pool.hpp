@@ -2,14 +2,14 @@
 
 #include <cstddef>
 
-#include "DataBuffer.hpp"
+#include "PoolBuffer.hpp"
 
 #define DEFAULT_SIZE 1
 
 template <class TType>
 class Pool {
     private:
-        DataBuffer<TType> data;
+        PoolBuffer<TType> data;
     public:
         Pool();
         Pool(size_t size);
@@ -24,10 +24,10 @@ class Pool {
         class Object {
             private:
                 TType *data;
-                DataBuffer<TType> *dataBuffer;
+                PoolBuffer<TType> *dataBuffer;
             public:
                 Object() = delete;
-                Object(TType* data, DataBuffer<TType> *dataBuffer);
+                Object(TType* data, PoolBuffer<TType> *dataBuffer);
                 Object(const Object& other) = delete;
                 Object(Object&& other) = delete;
 
@@ -55,7 +55,7 @@ template <class TType>
 Pool<TType>::~Pool() = default;
 
 template <class TType>
-Pool<TType>::Object::Object(TType* data, DataBuffer<TType> *dataBuffer) {
+Pool<TType>::Object::Object(TType* data, PoolBuffer<TType> *dataBuffer) {
     this->data = data;
     this->dataBuffer = dataBuffer;
 }
