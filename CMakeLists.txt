@@ -24,7 +24,9 @@ add_library(libftpp STATIC
 		include/thread_safe_iostream.hpp
 		source/thread_safe_iostream.cpp
 		include/threading.hpp
-		include/threading/thread_safe_queue.hpp)
+		include/threading/thread_safe_queue.hpp
+		include/threading/thread.hpp
+		source/threading/thread.cpp)
 
 enable_testing()
 
