@@ -14,12 +14,15 @@ add_library(libftpp STATIC
 	source/data_structures/DataBuffer.cpp
 
 	include/design_patterns.hpp
-		include/design_patterns/Memento.hpp
-		include/design_patterns/Observer.hpp
+	include/design_patterns/Memento.hpp
+	include/design_patterns/Observer.hpp
+	include/design_patterns/Singleton.hpp
+	include/design_patterns/StateMachine.hpp
 
-		source/design_patterns/Memento.cpp
-		include/design_patterns/Singleton.hpp
-		include/design_patterns/StateMachine.hpp)
+	source/design_patterns/Memento.cpp
+
+		include/thread_safe_iostream.hpp
+		source/thread_safe_iostream.cpp)
 
 enable_testing()
 
