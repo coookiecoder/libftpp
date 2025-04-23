@@ -34,6 +34,7 @@ add_library(libftpp STATIC
 	source/threading/WorkerPool.cpp
 	source/threading/PersistentWorker.cpp
 
+	include/network.hpp
 	include/network/Message.hpp
 	include/network/Server.hpp
 	include/network/Client.hpp
