@@ -18,7 +18,8 @@ add_library(libftpp STATIC
 		include/design_patterns/Observer.hpp
 
 		source/design_patterns/Memento.cpp
-		include/design_patterns/Singleton.hpp)
+		include/design_patterns/Singleton.hpp
+		include/design_patterns/StateMachine.hpp)
 
 enable_testing()
 

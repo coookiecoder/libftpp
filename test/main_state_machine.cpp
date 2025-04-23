@@ -1,5 +1,5 @@
 #include <iostream>
-#include "state_machine.hpp"
+#include <design_patterns/StateMachine.hpp>
 
 enum class State {
     Idle,
@@ -35,6 +35,7 @@ int main() {
     // Transitioning to and from the new State::Stopped
     try {
         sm.transitionTo(State::Stopped);  // Should not print any transition message, and throw an exception
+        return 1;
     } catch (const std::invalid_argument& e) {
         std::cout << "Exception caught: " << e.what() << std::endl;  // Handle state not found
     }
@@ -43,10 +44,12 @@ int main() {
     	sm.transitionTo(State::Stopped);  // Should not print anything, default empty lambda is executed
     } catch (const std::invalid_argument& e) {
         std::cout << "Exception caught: " << e.what() << std::endl;  // Handle state not found
+        return 1;
     }
     
     try {
         sm.transitionTo(State::Running);  // Should not print any transition message, and throw an exception
+        return 1;
     } catch (const std::invalid_argument& e) {
         std::cout << "Exception caught: " << e.what() << std::endl;  // Handle state not found
     }
