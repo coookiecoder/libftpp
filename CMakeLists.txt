@@ -26,7 +26,7 @@ add_library(libftpp STATIC
 	source/thread_safe_iostream.cpp
 
 	include/threading.hpp
-		include/threading/ThreadSafeQueue.hpp
+	include/threading/ThreadSafeQueue.hpp
 	include/threading/Thread.hpp
 	include/threading/WorkerPool.hpp
 	include/threading/PersistentWorker.hpp
@@ -43,13 +43,15 @@ add_library(libftpp STATIC
 	source/network/Client.cpp
 	source/network/Message.cpp
 	source/network/Server.cpp
-		include/mathematics/IVector2.hpp
-		include/mathematics/IVector3.hpp
-		include/mathematics.hpp
-		include/mathematics/PerlinNoise2D.hpp
-		source/mathematics/PerlinNoise2D.cpp
-		source/mathematics/Random2DCoordinateGenerator.cpp
-		include/mathematics/Random2DCoordinateGenerator.hpp)
+
+	include/mathematics.hpp
+	include/mathematics/IVector2.hpp
+	include/mathematics/IVector3.hpp
+	include/mathematics/PerlinNoise2D.hpp
+	include/mathematics/Random2DCoordinateGenerator.hpp
+
+	source/mathematics/PerlinNoise2D.cpp
+	source/mathematics/Random2DCoordinateGenerator.cpp)
 
 enable_testing()
 
