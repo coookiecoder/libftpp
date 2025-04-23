@@ -22,6 +22,7 @@ add_library(libftpp STATIC
 	source/design_patterns/Memento.cpp
 
 	include/thread_safe_iostream.hpp
+
 	source/thread_safe_iostream.cpp
 
 	include/threading.hpp
