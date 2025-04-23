@@ -4,6 +4,7 @@
 #include <sstream>
 #include <string>
 #include <thread>
+#include <mutex>
 
 class ThreadSafeIOStream {
     private:
