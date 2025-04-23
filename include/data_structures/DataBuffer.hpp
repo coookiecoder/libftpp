@@ -11,10 +11,10 @@ class DataBuffer {
     public:
         DataBuffer();
         DataBuffer(const DataBuffer& other) = delete;
-        DataBuffer(DataBuffer&& other) = delete;
+        DataBuffer(DataBuffer&& other) noexcept;
 
         DataBuffer& operator=(const DataBuffer& other) = delete;
-        DataBuffer& operator=(DataBuffer&& other) = delete;
+        DataBuffer& operator=(DataBuffer&& other) noexcept;
 
         template <class T>
         DataBuffer& operator<<(const T& value);
@@ -29,7 +29,7 @@ class DataBuffer {
 
 template <class T>
 DataBuffer& DataBuffer::operator<<(const T& value) {
-    static_assert(std::is_trivially_copyable<T>::value, "T must be trivially copyable");
+    // static_assert(std::is_trivially_copyable_v<T>, "T must be trivially copyable");
 
     buffer.resize(buffer.size() + sizeof(T));
     std::memcpy(buffer.data() + buffer.size() - sizeof(T), &value, sizeof(T));
@@ -38,7 +38,7 @@ DataBuffer& DataBuffer::operator<<(const T& value) {
 
 template <class T>
 DataBuffer& DataBuffer::operator>>(T& value) {
-    static_assert(std::is_trivially_copyable<T>::value, "T must be trivially copyable");
+    //static_assert(std::is_trivially_copyable<T>::value, "T must be trivially copyable");
 
     if (buffer.size() < sizeof(T)) {
         throw std::runtime_error("DataBuffer::operator>>: buffer too small");

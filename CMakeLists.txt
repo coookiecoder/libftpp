@@ -11,7 +11,10 @@ add_library(libftpp STATIC
 	include/data_structures/PoolBuffer.hpp 
 	include/data_structures/DataBuffer.hpp
 
-	source/data_structures/DataBuffer.cpp)
+	source/data_structures/DataBuffer.cpp
+		include/design_patterns.hpp
+		include/design_patterns/memento.hpp
+		source/design_patterns/memento.cpp)
 
 enable_testing()
 
