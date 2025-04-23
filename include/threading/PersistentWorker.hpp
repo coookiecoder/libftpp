@@ -4,7 +4,7 @@
 #include <thread>
 #include <iostream>
 #include <unordered_map>
-#include <threading/thread_safe_queue.hpp>
+#include <threading/ThreadSafeQueue.hpp>
 
 class PersistentWorker {
     private:

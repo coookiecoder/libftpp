@@ -26,7 +26,7 @@ add_library(libftpp STATIC
 	source/thread_safe_iostream.cpp
 
 	include/threading.hpp
-	include/threading/thread_safe_queue.hpp
+		include/threading/ThreadSafeQueue.hpp
 	include/threading/Thread.hpp
 	include/threading/WorkerPool.hpp
 	include/threading/PersistentWorker.hpp
@@ -44,7 +44,10 @@ add_library(libftpp STATIC
 	source/network/Message.cpp
 	source/network/Server.cpp
 		include/mathematics/IVector2.hpp
-		include/mathematics/IVector3.hpp)
+		include/mathematics/IVector3.hpp
+		include/mathematics.hpp
+		include/mathematics/PerlinNoise2D.hpp
+		source/mathematics/PerlinNoise2D.cpp)
 
 enable_testing()
 
