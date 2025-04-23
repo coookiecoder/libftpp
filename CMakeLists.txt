@@ -47,7 +47,9 @@ add_library(libftpp STATIC
 		include/mathematics/IVector3.hpp
 		include/mathematics.hpp
 		include/mathematics/PerlinNoise2D.hpp
-		source/mathematics/PerlinNoise2D.cpp)
+		source/mathematics/PerlinNoise2D.cpp
+		source/mathematics/Random2DCoordinateGenerator.cpp
+		include/mathematics/Random2DCoordinateGenerator.hpp)
 
 enable_testing()
 
