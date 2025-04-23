@@ -4,7 +4,7 @@
 template <typename TType>
 class Singleton {
     private:
-        static TType *singleton = nullptr;
+        static TType *singleton;
     public:
         Singleton() = delete;
         Singleton(const Singleton &) = delete;
@@ -20,6 +20,9 @@ class Singleton {
         template<typename ... TArgs>
         static void instantiate(TArgs&& ...p_args);
 };
+
+template <typename TType>
+TType* Singleton<TType>::singleton = nullptr;
 
 template <typename TType>
 TType* Singleton<TType>::instance() {

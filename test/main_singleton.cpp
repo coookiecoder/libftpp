@@ -1,5 +1,5 @@
+#include <design_patterns/Singleton.hpp>
 #include <iostream>
-#include "singleton.hpp"
 
 class MyClass {
 public:
@@ -18,6 +18,7 @@ int main() {
     {
         // This should throw an exception as instance is not yet created
         Singleton<MyClass>::instance();
+        return 1;
     } catch (const std::exception& e) {
         std::cout << "Exception: " << e.what() << std::endl; // Output: "Exception: Instance not yet created"
     }
@@ -30,6 +31,7 @@ int main() {
     {
         // This should throw an exception as instance is already created
         Singleton<MyClass>::instantiate(100);
+        return 1;
     } catch (const std::exception& e) {
         std::cout << "Exception: " << e.what() << std::endl; // Output: "Exception: Instance already created"
     }
