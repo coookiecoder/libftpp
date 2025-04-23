@@ -26,7 +26,9 @@ add_library(libftpp STATIC
 		include/threading.hpp
 		include/threading/thread_safe_queue.hpp
 		include/threading/thread.hpp
-		source/threading/thread.cpp)
+		source/threading/thread.cpp
+		include/threading/WorkerPool.hpp
+		source/threading/WorkerPool.cpp)
 
 enable_testing()
 
