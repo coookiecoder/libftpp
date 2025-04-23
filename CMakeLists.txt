@@ -42,7 +42,9 @@ add_library(libftpp STATIC
 
 	source/network/Client.cpp
 	source/network/Message.cpp
-	source/network/Server.cpp)
+	source/network/Server.cpp
+		include/mathematics/IVector2.hpp
+		include/mathematics/IVector3.hpp)
 
 enable_testing()
 

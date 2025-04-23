@@ -1,9 +1,9 @@
 #include <iostream>
-#include "ivector2.hpp"
+#include <mathematics/IVector2.hpp>
 
 int main() {
-    IVector2<int> vec1(3, 4);
-    IVector2<int> vec2(1, 2);
+    IVector2<float> vec1(3, 4);
+    IVector2<float> vec2(1, 2);
     
     std::cout << "Vec1 : " << vec1.x << " / " << vec1.y << std::endl;
     std::cout << "Vec2 : " << vec2.x << " / " << vec2.y << std::endl;

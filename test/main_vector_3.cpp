@@ -1,9 +1,9 @@
 #include <iostream>
-#include "ivector3.hpp"
+#include <mathematics/IVector3.hpp>
 
 int main() {
-    IVector3<int> vec1(3, 4, 1);
-    IVector3<int> vec2(1, 2, 3);
+    IVector3<float> vec1(3, 4, 1);
+    IVector3<float> vec2(1, 2, 3);
     
     std::cout << "Vec1 : " << vec1.x << " / " << vec1.y << " / " << vec1.z << std::endl;
     std::cout << "Vec2 : " << vec2.x << " / " << vec2.y << " / " << vec2.z << std::endl;
@@ -23,7 +23,7 @@ int main() {
 
     auto vecDiv = vec1 / vec2;
     std::cout << "vec1 / vec2 = (" << vecDiv.x << ", " << vecDiv.y << ", " << vecDiv.z << ")" << std::endl;
-    // Expected: vec1 / vec2 = (3, 2, 0)
+    // Expected: vec1 / vec2 = (3, 2, 1/3)
 
     bool isEqual = vec1 == vec2;
     std::cout << "vec1 == vec2: " << (isEqual ? "true" : "false") << std::endl;
