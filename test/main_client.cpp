@@ -1,5 +1,5 @@
-#include "client.hpp"
-#include "thread_safe_iostream.hpp"
+#include <network/Client.hpp>
+#include <thread_safe_iostream.hpp>
 #include <string>
 
 int main() {
@@ -48,6 +48,8 @@ int main() {
 		if (input == "quit" || (input.length() == 1 && input[0] == 'q')) {
 		    quit = true;
 		}
+
+		std::cout << input << std::endl;
 	}
 
     // Disconnect from the server

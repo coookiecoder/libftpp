@@ -21,16 +21,26 @@ add_library(libftpp STATIC
 
 	source/design_patterns/Memento.cpp
 
-		include/thread_safe_iostream.hpp
-		source/thread_safe_iostream.cpp
-		include/threading.hpp
-		include/threading/thread_safe_queue.hpp
-		include/threading/Thread.hpp
-		source/threading/Thread.cpp
-		include/threading/WorkerPool.hpp
-		source/threading/WorkerPool.cpp
-		include/threading/PersistentWorker.hpp
-		source/threading/PersistentWorker.cpp)
+	include/thread_safe_iostream.hpp
+	source/thread_safe_iostream.cpp
+
+	include/threading.hpp
+	include/threading/thread_safe_queue.hpp
+	include/threading/Thread.hpp
+	include/threading/WorkerPool.hpp
+	include/threading/PersistentWorker.hpp
+
+	source/threading/Thread.cpp
+	source/threading/WorkerPool.cpp
+	source/threading/PersistentWorker.cpp
+
+	include/network/Message.hpp
+	include/network/Server.hpp
+	include/network/Client.hpp
+
+	source/network/Client.cpp
+	source/network/Message.cpp
+	source/network/Server.cpp)
 
 enable_testing()
 
