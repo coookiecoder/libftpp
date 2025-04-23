@@ -25,10 +25,12 @@ add_library(libftpp STATIC
 		source/thread_safe_iostream.cpp
 		include/threading.hpp
 		include/threading/thread_safe_queue.hpp
-		include/threading/thread.hpp
-		source/threading/thread.cpp
+		include/threading/Thread.hpp
+		source/threading/Thread.cpp
 		include/threading/WorkerPool.hpp
-		source/threading/WorkerPool.cpp)
+		source/threading/WorkerPool.cpp
+		include/threading/PersistentWorker.hpp
+		source/threading/PersistentWorker.cpp)
 
 enable_testing()
 

@@ -1,5 +1,5 @@
-#include "persistent_worker.hpp"
-#include "thread_safe_iostream.hpp"
+#include <threading/PersistentWorker.hpp>
+#include <thread_safe_iostream.hpp>
 #include <iostream>
 
 int main() {

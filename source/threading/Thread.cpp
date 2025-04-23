@@ -1,4 +1,4 @@
-#include <threading/thread.hpp>
+#include <threading/Thread.hpp>
 #include <thread_safe_iostream.hpp>
 #include <utility>
 
