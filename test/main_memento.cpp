@@ -42,5 +42,9 @@ int main() {
 	// Expected Output: "Restored state: x = 42, y = Hello"
     std::cout << "Restored state: x = " << myObject.x << ", y = " << myObject.y << std::endl;
 
+    if (myObject.x != 42 || myObject.y != "Hello") {
+        return 1;
+    }
+
     return 0;
 }

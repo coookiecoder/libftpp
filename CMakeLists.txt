@@ -14,7 +14,8 @@ add_library(libftpp STATIC
 	source/data_structures/DataBuffer.cpp
 		include/design_patterns.hpp
 		include/design_patterns/memento.hpp
-		source/design_patterns/memento.cpp)
+		source/design_patterns/memento.cpp
+		include/design_patterns/observer.hpp)
 
 enable_testing()
 
