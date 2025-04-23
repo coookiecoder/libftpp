@@ -48,8 +48,6 @@ int main() {
 		if (input == "quit" || (input.length() == 1 && input[0] == 'q')) {
 		    quit = true;
 		}
-
-		std::cout << input << std::endl;
 	}
 
     // Disconnect from the server
