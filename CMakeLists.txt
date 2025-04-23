@@ -12,10 +12,13 @@ add_library(libftpp STATIC
 	include/data_structures/DataBuffer.hpp
 
 	source/data_structures/DataBuffer.cpp
-		include/design_patterns.hpp
-		include/design_patterns/memento.hpp
-		source/design_patterns/memento.cpp
-		include/design_patterns/observer.hpp)
+
+	include/design_patterns.hpp
+		include/design_patterns/Memento.hpp
+		include/design_patterns/Observer.hpp
+
+		source/design_patterns/Memento.cpp
+		include/design_patterns/Singleton.hpp)
 
 enable_testing()
 

@@ -1,4 +1,4 @@
-#include <design_patterns/memento.hpp>
+#include <design_patterns/Memento.hpp>
 #include <iostream>
 
 class TestClass : public Memento {
